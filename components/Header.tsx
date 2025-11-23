@@ -26,7 +26,10 @@ export default function Header() {
                 </Link>
 
                 {/* 右側メニュー */}
-                <nav className="flex items-center gap-4 text-sm font-medium text-slate-600">
+                <nav className="flex items-center gap-4 text-lg font-medium text-slate-600">
+                    <Link href="/" className="hover:text-orange-500 transition-colors">
+                        Home
+                    </Link>
                     <Link href="/about" className="hover:text-orange-500 transition-colors hidden sm:block">
                         About
                     </Link>

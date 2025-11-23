@@ -3,6 +3,7 @@ import { createClient } from "@/utils/supabase/server"
 import { Button } from "@/components/ui/button"
 import { PlusCircle } from "lucide-react"
 import PhotoList from "./PhotoList"
+import LogoutButton from "@/components/LogoutButton"
 
 // データのキャッシュはしない（管理画面なので常に最新を見たい）
 export const revalidate = 0
@@ -32,12 +33,17 @@ export default async function AdminDashboard() {
                 <div className="flex justify-between items-center">
                     <h1 className="text-3xl font-bold text-slate-800">Admin Dashboard 🛠️</h1>
 
-                    <Link href="/admin/upload">
-                        <Button className="gap-2">
-                            <PlusCircle className="w-4 h-4" />
-                            写真を追加
-                        </Button>
-                    </Link>
+                    <div className="flex gap-2">
+                        {/* ログアウトボタンを追加 */}
+                        <LogoutButton />
+
+                        <Link href="/admin/upload">
+                            <Button className="gap-2">
+                                <PlusCircle className="w-4 h-4" />
+                                写真を追加
+                            </Button>
+                        </Link>
+                    </div>
                 </div>
 
                 {/* 写真リストコンポーネント */}

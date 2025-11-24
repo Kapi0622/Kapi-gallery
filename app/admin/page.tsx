@@ -2,8 +2,8 @@ import Link from "next/link"
 import { createClient } from "@/utils/supabase/server"
 import { Button } from "@/components/ui/button"
 import { PlusCircle } from "lucide-react"
-import PhotoList from "./PhotoList"
 import LogoutButton from "@/components/LogoutButton"
+import SortablePhotoList from "./SortablePhotoList"
 
 // データのキャッシュはしない（管理画面なので常に最新を見たい）
 export const revalidate = 0
@@ -15,6 +15,8 @@ export default async function AdminDashboard() {
     const { data: photos } = await supabase
         .from('photos')
         .select('*')
+        .order('sort_order', { ascending: true })
+        // もし sort_order が同じ場合は、作成日時の新しい順にする
         .order('created_at', { ascending: false })
 
     // URLを付与
@@ -47,9 +49,10 @@ export default async function AdminDashboard() {
                 </div>
 
                 {/* 写真リストコンポーネント */}
-                <div className="bg-slate-100 p-4 rounded-xl border border-slate-200 dark:bg-slate-900 dark:border-slate-800">
-                    <h2 className="text-sm font-bold text-slate-500 mb-4 dark:text-slate-100">投稿済み写真 ({photosWithUrl.length})</h2>
-                    <PhotoList photos={photosWithUrl} />
+                <div className="bg-slate-100 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+                    <h2 className="text-sm font-bold text-slate-500 dark:text-slate-400 mb-4 font-rounded">投稿済み写真 ({photosWithUrl.length})</h2>
+                    {/* 変更: SortablePhotoList に置き換え */}
+                    <SortablePhotoList photos={photosWithUrl} />
                 </div>
 
             </div>

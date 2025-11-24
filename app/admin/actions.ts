@@ -54,6 +54,7 @@ export async function updatePhoto(formData: FormData) {
         location_note: location,
         tags: tags,
         created_at: targetDate, // これで並び順をコントロール
+        taken_at: targetDate,
     }
 
     // 画像の差し替えがある場合
@@ -94,6 +95,26 @@ export async function updatePhoto(formData: FormData) {
         return { error: '更新に失敗しました' }
     }
 
+    revalidatePath('/admin')
+    revalidatePath('/')
+
+    return { success: true }
+}
+
+export async function updatePhotoOrder(items: { id: string; sort_order: number }[]) {
+    const supabase = await createClient()
+
+    // SQLで作った関数 'update_photos_order' を呼び出す
+    const { error } = await supabase.rpc('update_photos_order', {
+        payload: items
+    })
+
+    if (error) {
+        console.error("Order update error:", error)
+        return { error: "並び順の保存に失敗しました" }
+    }
+
+    // 画面を更新
     revalidatePath('/admin')
     revalidatePath('/')
 

@@ -12,7 +12,9 @@ export default async function Home() {
   const { data: photos, error } = await supabase
     .from('photos')
     .select('*')
-    .order('created_at', { ascending: false })
+    .order('sort_order', { ascending: true })
+    .order('created_at', { ascending: false }) // サブのソート条件
+    .limit(12)
 
   if (error) {
     console.error("Supabase Error:", error)
@@ -28,7 +30,7 @@ export default async function Home() {
     const { data } = supabase.storage
       .from('kapi-photos')
       .getPublicUrl(photo.storage_path)
-    
+
     return {
       ...photo,
       media_type: photo.media_type || 'image',
@@ -41,11 +43,11 @@ export default async function Home() {
   return (
     // ▼ 背景にドット柄を適用
     <main className="min-h-screen bg-[#fdfcf8] dark:bg-slate-950 bg-[radial-gradient(#e5e7eb_1.5px,transparent_1.5px)] [background-size:20px_20px] dark:bg-[radial-gradient(#1f2937_1.5px,transparent_1.5px)] transition-colors duration-300 pb-20">
-      
+
       {/* ▼ ヒーローエリアをリデザイン */}
       <section className="pt-12 pb-6 px-4">
         <div className="max-w-3xl mx-auto text-center relative">
-          
+
           {/* 装飾アイコン */}
           <div className="absolute -top-4 -left-4 text-orange-200 dark:text-orange-900/30 animate-pulse hidden md:block">
             <Sparkles size={40} />
@@ -60,7 +62,7 @@ export default async function Home() {
               Kapi Gallery <span className="text-orange-400 inline-block animate-bounce">.</span>
             </h1>
             <p className="text-slate-600 dark:text-slate-300 text-sm md:text-base font-rounded max-w-md mx-auto leading-relaxed font-medium">
-              のんびり屋の猫「カピ」の日常アーカイブ。<br/>
+              のんびり屋の猫「カピ」の日常アーカイブ。<br />
               気まぐれに更新しています🐾
             </p>
           </div>
@@ -69,7 +71,7 @@ export default async function Home() {
 
       {/* ギャラリー本体 */}
       <PhotoGallery photos={photosWithUrl} />
-      
+
     </main>
   )
 }

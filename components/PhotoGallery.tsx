@@ -1,8 +1,12 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
+import { useInView } from "react-intersection-observer"
+import { fetchMorePhotos } from "@/app/actions"
 import { motion, AnimatePresence } from "framer-motion"
 import { Calendar, MapPin, Filter, Tag, PlayCircle, X, Grid } from "lucide-react" // Gridアイコン追加
+import { Loader2 } from "lucide-react"
+
 
 import {
     Dialog,
@@ -36,10 +40,48 @@ type Photo = {
 // ★設定: 最初に見せるタグの数
 const VISIBLE_TAGS_LIMIT = 9
 
-export default function PhotoGallery({ photos }: { photos: Photo[] }) {
+export default function PhotoGallery({ photos: initialPhotos }: { photos: Photo[] }) {
+    // 表示する写真リスト（初期データで初期化）
+    const [photos, setPhotos] = useState<Photo[]>(initialPhotos)
+    const [page, setPage] = useState(1) // 現在何ページ目まで読んだか
+    const [hasMore, setHasMore] = useState(true) // まだ続きがあるか
+    const [isLoadingMore, setIsLoadingMore] = useState(false)
+
+    // 画面下端を検知するフック
+    const { ref, inView } = useInView({
+        rootMargin: "200px", // 底に着く200px手前で検知
+    })
+
     const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
     const [activeTag, setActiveTag] = useState<string>("All")
-    const [isTagModalOpen, setIsTagModalOpen] = useState(false) // タグ一覧モーダル用
+    const [isTagModalOpen, setIsTagModalOpen] = useState(false)
+
+    const loadMore = async () => {
+        setIsLoadingMore(true)
+        const nextPage = page + 1
+
+        // Server Actionを呼ぶ
+        const newPhotos = await fetchMorePhotos(nextPage)
+
+        if (newPhotos.length === 0) {
+            setHasMore(false) // もうデータがない
+        } else {
+            // 既存リストの後ろにくっつける
+            // (重複を防ぐためにIDでチェックしても良いが、今回は簡易的に結合)
+            setPhotos((prev) => [...prev, ...newPhotos])
+            setPage(nextPage)
+        }
+        setIsLoadingMore(false)
+    }
+
+    // ▼▼▼ 追加: スクロール検知で次のデータを読み込む ▼▼▼
+    useEffect(() => {
+        // 条件: 底が見えた AND まだ続きがある AND 読み込み中でない AND フィルタリングしていない(All)
+        if (inView && hasMore && !isLoadingMore && activeTag === "All") {
+            loadMore()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [inView, hasMore, isLoadingMore, activeTag])
 
     // タグ生成ロジック
     const allTags = useMemo(() => {
@@ -154,6 +196,22 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
                         ))}
                     </AnimatePresence>
                 </div>
+
+                {/* ▼▼▼ 追加: 読み込み中のローディング表示 & 検知用エリア ▼▼▼ */}
+                {activeTag === "All" && hasMore && (
+                    <div ref={ref} className="py-10 flex justify-center w-full">
+                        {isLoadingMore && (
+                            <Loader2 className="w-8 h-8 animate-spin text-orange-400" />
+                        )}
+                    </div>
+                )}
+
+                {/* データ切れの表示 */}
+                {activeTag === "All" && !hasMore && photos.length > 0 && (
+                    <p className="text-center text-slate-400 text-sm py-10 font-rounded">
+                        すべて読み込みました 🐾
+                    </p>
+                )}
 
                 {/* 0枚時の表示 */}
                 {filteredPhotos.length === 0 && (

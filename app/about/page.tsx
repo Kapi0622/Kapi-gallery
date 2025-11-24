@@ -17,10 +17,6 @@ export default function AboutPage() {
 
                     <div className="relative bg-white dark:bg-slate-800 p-3 pb-12 rounded-xl shadow-xl transform -rotate-3 transition-transform duration-500 group-hover:rotate-0 border border-slate-100 dark:border-slate-700">
                         <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-900">
-                            {/* ★重要★ 
-                  ここに以前設定した画像パスを入れてください 
-                  (publicフォルダなら "/kapi-profile.jpg")
-                */}
                             <BlurImage
                                 src="/kapi-profile.jpg"
                                 alt="Kapi Profile"
@@ -56,17 +52,17 @@ export default function AboutPage() {
                                 Kapi <span className="text-lg text-slate-400 font-normal ml-2">(カピ)</span>
                             </h1>
                             <p className="text-lg text-slate-600 dark:text-slate-300 font-rounded font-medium leading-relaxed">
-                                我が家のアイドル。<br />
+                                我が家のアイドルです。<br />
                                 毎日気ままに過ごしています。
                             </p>
                         </div>
 
                         {/* 詳細データ (カード風に並べる) */}
                         <div className="grid grid-cols-2 gap-3">
-                            <InfoCard label="性格" value="のんびり / マイペース" />
-                            <InfoCard label="誕生日" value="2020年2月22日 (5歳)" />
-                            <InfoCard label="特技" value="長時間のお昼寝" />
-                            <InfoCard label="チャームポイント" value="白い靴下" />
+                            <InfoCard label="性格" value="ビビり / マイペース" />
+                            <InfoCard label="誕生日" value="2017年6月22日 (8歳)" />
+                            <InfoCard label="特技" value="長時間のお昼寝 / 脱走" />
+                            <InfoCard label="チャームポイント" value="しっぽの白いリング模様" />
                         </div>
 
                         {/* 好きなものリスト */}

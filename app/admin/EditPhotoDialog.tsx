@@ -17,6 +17,7 @@ type Photo = {
     title: string | null
     tags: string[] | null
     created_at: string
+    taken_at: string
 }
 
 export default function EditPhotoDialog({ photo }: { photo: Photo }) {
@@ -48,7 +49,7 @@ export default function EditPhotoDialog({ photo }: { photo: Photo }) {
         }
     }
 
-    const defaultDate = new Date(photo.created_at).toISOString().slice(0, 16)
+    const defaultDate = new Date(photo.taken_at || photo.created_at).toISOString().slice(0, 16)
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>

@@ -11,7 +11,7 @@ export default function Footer() {
                 {/* アイコンとタイトル */}
                 <div className="flex items-center gap-2 text-slate-700 dark:text-slate-100 opacity-80 hover:opacity-100 transition-opacity">
                     <PawPrint className="w-5 h-5 text-orange-400" />
-                    <span className="font-bold font-rounded text-2xl tracking-tight">Kapi Gallery</span>
+                    <span className="font-bold font-rounded text-2xl tracking-tight">カピのあしあと</span>
                 </div>
 
                 {/* ナビゲーションリンク */}
@@ -30,7 +30,7 @@ export default function Footer() {
 
                 {/* コピーライト */}
                 <div className="text-xs text-slate-400 dark:text-slate-600 font-rounded">
-                    &copy; {currentYear} Kapi Gallery. All rights reserved.
+                    &copy; {currentYear} カピのあしあと. All rights reserved.
                 </div>
             </div>
         </footer>

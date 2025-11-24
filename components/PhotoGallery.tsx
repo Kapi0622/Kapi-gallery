@@ -197,7 +197,7 @@ export default function PhotoGallery({ photos: initialPhotos }: { photos: Photo[
                     </AnimatePresence>
                 </div>
 
-                {/* ▼▼▼ 追加: 読み込み中のローディング表示 & 検知用エリア ▼▼▼ */}
+                {/* 読み込み中のローディング表示 & 検知用エリア */}
                 {activeTag === "All" && hasMore && (
                     <div ref={ref} className="py-10 flex justify-center w-full">
                         {isLoadingMore && (
@@ -225,7 +225,7 @@ export default function PhotoGallery({ photos: initialPhotos }: { photos: Photo[
                 )}
             </div>
 
-            {/* ▼▼▼ 追加: タグ一覧モーダル ▼▼▼ */}
+            {/* タグ一覧モーダル */}
             <Dialog open={isTagModalOpen} onOpenChange={setIsTagModalOpen}>
                 <DialogContent className="max-w-2xl bg-white dark:bg-slate-950 font-rounded rounded-3xl">
                     <DialogHeader>
@@ -256,47 +256,60 @@ export default function PhotoGallery({ photos: initialPhotos }: { photos: Photo[
                     </div>
                 </DialogContent>
             </Dialog>
-            {/* ▲▲▲ 追加ここまで ▲▲▲ */}
 
-
-            {/* ▼ 写真詳細モーダル (変更なし) */}
+            {/* ▼ モーダル (縦型レイアウト統一版) */}
             <Dialog open={!!selectedPhoto} onOpenChange={(open) => !open && setSelectedPhoto(null)}>
-                <DialogContent className="max-w-6xl w-[95vw] p-0 overflow-hidden bg-[#fdfcf8] dark:bg-slate-950 border-[6px] border-orange-100 dark:border-slate-800 rounded-[2rem] shadow-2xl">
-                    <div className="flex flex-col md:flex-row h-[85vh] md:h-[80vh]">
-                        <div className="relative w-full md:w-1/2 h-1/2 md:h-full bg-slate-100 dark:bg-slate-900/50 flex items-center justify-center bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)]">
+                {/* 変更1: 幅を max-w-6xl から max-w-lg (縦長カードサイズ) に変更 */}
+                {/* 変更2: 高さを h-[90vh] に固定 */}
+                <DialogContent className="max-w-lg w-[95vw] h-[90vh] p-0 overflow-hidden bg-[#fdfcf8] dark:bg-slate-950 border-[6px] border-orange-100 dark:border-slate-800 rounded-[2rem] shadow-2xl flex flex-col">
+
+                    {/* コンテンツエリア (常に縦並び flex-col) */}
+                    <div className="flex flex-col h-full">
+
+                        {/* 上部: 画像エリア (高さの55%〜60%を使用) */}
+                        <div className="relative w-full h-[55%] bg-slate-100 dark:bg-slate-900/50 flex items-center justify-center bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] shrink-0">
                             {selectedPhoto && (
-                                <div className="relative w-full h-full flex items-center justify-center">
+                                // ▼▼▼ 修正: ここのクラス名を変更 (flexなどを削除し、サイズを明示) ▼▼▼ 
+                                <div className="relative w-full h-full p-4">
                                     {selectedPhoto.media_type === "video" ? (
                                         <video
                                             src={selectedPhoto.publicUrl}
-                                            className="w-full h-full object-contain"
+                                            className="w-full h-full object-contain drop-shadow-lg"
                                             controls autoPlay playsInline
                                         />
                                     ) : (
-                                        <BlurImage src={selectedPhoto.publicUrl} alt="view" fill className="object-contain" />
+                                        <BlurImage
+                                            src={selectedPhoto.publicUrl}
+                                            alt="view"
+                                            fill
+                                            className="object-contain drop-shadow-lg w-full h-full"
+                                        />
                                     )}
                                 </div>
                             )}
-                            <DialogClose className="absolute top-4 right-4 md:hidden bg-black/50 text-white p-2 rounded-full backdrop-blur-md z-50">
+                            {/* 閉じるボタン (画像の右上に配置 / PCでも表示する) */}
+                            <DialogClose className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full backdrop-blur-md z-50 transition-colors">
                                 <X className="w-5 h-5" />
                             </DialogClose>
                         </div>
 
-                        <div className="w-full md:w-1/2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-6 md:p-8 flex flex-col gap-6 overflow-y-auto relative">
-                            <DialogHeader className="text-left space-y-4">
-                                <Badge variant="outline" className="w-fit mb-2 border-orange-300 text-orange-500 dark:border-orange-700 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20">
+                        {/* 下部: 情報エリア (残りの高さを使用 / スクロール可能) */}
+                        <div className="w-full h-[45%] bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-6 flex flex-col gap-5 overflow-y-auto relative grow">
+
+                            <DialogHeader className="text-left space-y-2 shrink-0">
+                                <Badge variant="outline" className="w-fit border-orange-300 text-orange-500 dark:border-orange-700 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20">
                                     {selectedPhoto?.media_type === 'video' ? '🎬 Movie' : '📷 Photo'}
                                 </Badge>
                                 <div>
-                                    <DialogTitle className="text-3xl font-bold text-slate-800 dark:text-slate-100 font-rounded tracking-tight leading-tight">
+                                    <DialogTitle className="text-2xl md:text-3xl font-bold text-slate-800 dark:text-slate-100 font-rounded tracking-tight leading-tight">
                                         {selectedPhoto?.title || "No Title"}
                                     </DialogTitle>
-                                    <p className="text-sm text-slate-400 font-bold mt-1">Kapi&apos;s Moment 🐾</p>
+                                    <p className="text-xs md:text-sm text-slate-400 font-bold mt-1">Kapi&apos;s Moment 🐾</p>
                                 </div>
                             </DialogHeader>
 
                             {selectedPhoto && (
-                                <div className="space-y-6 font-rounded flex-1">
+                                <div className="space-y-6 font-rounded">
                                     <div className="flex flex-col gap-3">
                                         <InfoItem icon={Calendar} label="撮影日" value={formatDate(selectedPhoto.taken_at)} />
                                         {selectedPhoto.location_note && (
@@ -318,7 +331,8 @@ export default function PhotoGallery({ photos: initialPhotos }: { photos: Photo[
                                 </div>
                             )}
 
-                            <div className="mt-auto pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white/80 dark:bg-slate-900/80 backdrop-blur-md -mx-6 -mb-6 p-6 md:rounded-br-[2rem]">
+                            {/* 下部固定エリア (いいねボタンなど) */}
+                            <div className="mt-auto pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                                 <div className="flex items-center gap-3">
                                     <span className="text-sm font-bold text-slate-500 dark:text-slate-400">Love it? 👉</span>
                                     <LikeButton
@@ -327,12 +341,8 @@ export default function PhotoGallery({ photos: initialPhotos }: { photos: Photo[
                                         className="border-2 border-orange-100 dark:border-slate-700 bg-orange-50/50 dark:bg-slate-800/50"
                                     />
                                 </div>
-                                <DialogClose asChild>
-                                    <Button variant="ghost" className="hidden md:flex font-bold text-slate-500 hover:text-slate-700 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800">
-                                        Close <X className="w-4 h-4 ml-2" />
-                                    </Button>
-                                </DialogClose>
                             </div>
+
                         </div>
                     </div>
                 </DialogContent>

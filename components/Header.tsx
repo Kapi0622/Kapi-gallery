@@ -21,13 +21,13 @@ export default function Header() {
                 <Link href="/" className="flex items-center gap-2 group">
                     {/* ...ロゴの中身... */}
                     <span className="text-xl font-bold tracking-tight text-slate-700 dark:text-slate-200 font-rounded">
-                        Kapi Gallery
+                        カピのあしあと🐾
                     </span>
                 </Link>
 
                 {/* 右側メニュー */}
                 {/* PC用メニュー (スマホでは非表示: hidden md:flex) */}
-                <nav className="hidden md:flex items-center gap-4 text-sm font-medium text-slate-600 dark:text-slate-300">
+                <nav className="hidden md:flex items-center gap-4 text-lg font-medium text-slate-600 dark:text-slate-300">
                     <Link href="/" className="hover:text-orange-500 transition-colors">
                         ホーム
                     </Link>

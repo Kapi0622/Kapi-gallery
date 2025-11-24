@@ -20,17 +20,17 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
 
   title: {
-    default: "Kapi Gallery 🐾",
-    template: "%s | Kapi Gallery", // 子ページでは "About | Kapi Gallery" のようになります
+    default: "カピのあしあと",
+    template: "%s | カピのあしあと", // 子ページでは "About | Kapi Gallery" のようになります
   },
   description: "のんびり屋の猫「カピ」の日常を切り取ったフォトアーカイブ。",
 
   // 2. OGP設定 (LINE, Facebook, Discordなど)
   openGraph: {
-    title: "Kapi Gallery 🐾",
+    title: "カピのあしあと",
     description: "カピの写真を見て癒やされませんか？",
     url: "/",
-    siteName: "Kapi Gallery",
+    siteName: "カピのあしあと",
     locale: "ja_JP",
     type: "website",
   },
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   // 3. Twitter Card設定 (X)
   twitter: {
     card: "summary_large_image", // 大きな画像で表示
-    title: "Kapi Gallery 🐾",
+    title: "カピのあしあと",
     description: "のんびり屋の猫「カピ」の日常アーカイブ。",
     // creator: "@your_twitter_id", // 必要であれば
   },

@@ -59,7 +59,7 @@ export default async function Home() {
           {/* タイトルカード */}
           <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md p-8 rounded-3xl border border-white/60 dark:border-slate-800/60 shadow-sm inline-block relative">
             <h1 className="text-4xl md:text-6xl font-bold text-slate-800 dark:text-slate-100 tracking-tight font-rounded mb-3">
-              Kapi Gallery <span className="text-orange-400 inline-block animate-bounce">.</span>
+              カピのあしあと🐾
             </h1>
             <p className="text-slate-600 dark:text-slate-300 text-sm md:text-base font-rounded max-w-md mx-auto leading-relaxed font-medium">
               のんびり屋の猫「カピ」の日常アーカイブ。<br />

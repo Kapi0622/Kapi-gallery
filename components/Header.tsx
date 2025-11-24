@@ -4,6 +4,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { PawPrint } from "lucide-react"
 import { ModeToggle } from "./ModeToggle"
+import MobileNav from "./MobileNav"
 
 export default function Header() {
     return (
@@ -25,21 +26,24 @@ export default function Header() {
                 </Link>
 
                 {/* 右側メニュー */}
-                <nav className="flex items-center gap-4 text-lg font-medium text-slate-600 dark:text-slate-300">
+                {/* PC用メニュー (スマホでは非表示: hidden md:flex) */}
+                <nav className="hidden md:flex items-center gap-4 text-sm font-medium text-slate-600 dark:text-slate-300">
                     <Link href="/" className="hover:text-orange-500 transition-colors">
                         ホーム
                     </Link>
-                    <Link href="/about" className="hover:text-orange-500 transition-colors hidden sm:block">
+                    <Link href="/about" className="hover:text-orange-500 transition-colors">
                         カピについて
                     </Link>
                     <Link href="/admin" className="hover:text-orange-500 transition-colors">
-                        管理者用
+                        管理者
                     </Link>
-
-                    {/* ▼ ここに追加！ */}
                     <ModeToggle />
-
                 </nav>
+
+                {/* スマホ用メニュー (PCでは非表示: md:hidden) */}
+                <div className="md:hidden">
+                    <MobileNav />
+                </div>
             </div>
         </motion.header>
     )

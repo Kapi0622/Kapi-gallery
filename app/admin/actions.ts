@@ -40,6 +40,7 @@ export async function updatePhoto(formData: FormData) {
     const supabase = await createClient()
 
     const id = formData.get('id') as string
+    const title = formData.get('title') as string
     const location = formData.get('location') as string
     const tagsString = formData.get('tags') as string
     const dateStr = formData.get('date') as string // 並び順変更用（日付）
@@ -49,6 +50,7 @@ export async function updatePhoto(formData: FormData) {
     const targetDate = dateStr ? new Date(dateStr).toISOString() : new Date().toISOString()
 
     let updateData: any = {
+        title: title,
         location_note: location,
         tags: tags,
         created_at: targetDate, // これで並び順をコントロール

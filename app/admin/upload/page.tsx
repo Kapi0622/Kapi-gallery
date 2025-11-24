@@ -14,6 +14,7 @@ export default function UploadPage() {
     const [file, setFile] = useState<File | null>(null)
     const [preview, setPreview] = useState<string | null>(null)
     const [uploading, setUploading] = useState(false)
+    const [title, setTitle] = useState("")
 
     // メタデータ入力用
     const [location, setLocation] = useState("")
@@ -67,6 +68,7 @@ export default function UploadPage() {
                     storage_path: storagePath,
                     width: w,
                     height: h,
+                    title: title,
                     location_note: location,
                     tags: tags.split(',').map(t => t.trim()).filter(t => t), // カンマ区切りを配列に
                     taken_at: new Date().toISOString(), // とりあえず現在時刻
@@ -79,6 +81,7 @@ export default function UploadPage() {
             // フォームリセット
             setFile(null)
             setPreview(null)
+            setTitle("")
             setLocation("")
             setTags("")
 
@@ -111,6 +114,16 @@ export default function UploadPage() {
                             <img src={preview} alt="Preview" className="w-full h-auto object-contain max-h-64" />
                         </div>
                     )}
+
+                    <div className="space-y-2">
+                        <Label className="text-slate-600 dark:text-slate-300">タイトル</Label>
+                        <Input
+                            placeholder="例：お昼寝中のカピ"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            className="dark:bg-slate-800 dark:border-slate-700 font-bold"
+                        />
+                    </div>
 
                     {/* メタデータ入力 */}
                     <div className="space-y-2 dark:bg-slate-900">

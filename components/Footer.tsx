@@ -17,14 +17,14 @@ export default function Footer() {
                 {/* ナビゲーションリンク */}
                 <nav className="flex gap-6 text-sm text-slate-500 dark:text-slate-400 font-medium">
                     <Link href="/" className="hover:text-orange-500 transition-colors">
-                        Home
+                        ホーム
                     </Link>
                     <Link href="/about" className="hover:text-orange-500 transition-colors">
-                        About
+                        カピについて
                     </Link>
                     {/* 管理者ログインページへのリンク（少し目立たなくする） */}
                     <Link href="/login" className="hover:text-orange-500 transition-colors">
-                        Admin
+                        管理者
                     </Link>
                 </nav>
 

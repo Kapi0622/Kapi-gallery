@@ -121,12 +121,46 @@
   }
 }
 
-/* スクロールバー非表示ユーティリティ (Chrome, Safari, Edge) */
+/* 1. サイト全体のスクロールバーを可愛くカスタマイズ */
+/* Chrome, Safari, Edge */
+::-webkit-scrollbar {
+  width: 10px;  /* 縦スクロールバーの幅 */
+  height: 8px;  /* 横スクロールバーの高さ */
+}
+
+/* スクロールバーの背景（レール） */
+::-webkit-scrollbar-track {
+  background: transparent; /* 背景になじませるため透明に */
+}
+
+/* つまみ（動かす部分）のデザイン */
+::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1; /* 通常時は薄いグレー (slate-300) */
+  border-radius: 9999px;     /* 丸くする */
+  border: 2px solid transparent; /* 余白を作るテクニック */
+  background-clip: content-box;
+}
+
+/* ホバーした時につまみをオレンジにする */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #fb923c; /* orange-400 */
+}
+
+/* ダークモード時の色調整 */
+.dark ::-webkit-scrollbar-thumb {
+  background-color: #475569; /* slate-600 */
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: #ea580c; /* orange-600 */
+}
+
+
+/* 2. 特定の場所だけスクロールバーを完全に消したい場合用ユーティリティ */
+/* (タグ一覧の横スクロールなどに使用) */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-/* Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }

@@ -1,63 +1,109 @@
-import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { Heart, Star, Fish } from "lucide-react"
+import { Heart, Star, Fish, Sparkles, PawPrint } from "lucide-react"
 import BlurImage from "@/components/ui/BlurImage"
 
 export default function AboutPage() {
     return (
-        <div className="min-h-screen bg-[#fdfcf8] p-8 flex dark:bg-slate-950 items-center justify-center">
-            <Card className="max-w-3xl w-full bg-white dark:bg-slate-900 shadow-xl border-slate-100 dark:border-slate-800 overflow-hidden transition-colors">
-                <div className="flex flex-col md:flex-row">
+        // 背景にドット柄を適用
+        <div className="min-h-[90vh] p-4 md:p-8 flex items-center justify-center bg-[#fdfcf8] dark:bg-slate-950 bg-[radial-gradient(#e5e7eb_1.5px,transparent_1.5px)] [background-size:20px_20px] dark:bg-[radial-gradient(#1f2937_1.5px,transparent_1.5px)]">
 
-                    {/* 左側: プロフィール画像エリア */}
-                    <div className="w-full md:w-1/2 relative h-64 md:h-auto bg-orange-50 dark:bg-orange-900/20">
-                        <BlurImage
-                            src="/kapi-profile.jpg"
-                            alt="Kapi Profile"
-                            fill
-                            className="object-cover"
-                        />
-                    </div>
+            <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
 
-                    {/* 右側: テキスト情報エリア */}
-                    <CardContent className="w-full md:w-1/2 p-8 space-y-6">
-                        <div>
-                            <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-100 font-rounded mb-2">
-                                Kapi <span className="text-sm text-slate-400 font-normal">(カピ)</span>
-                            </h1>
-                            <Badge variant="secondary" className="bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-100 hover:bg-orange-200">
-                                看板猫
-                            </Badge>
+                {/* 左側: 写真エリア (ポラロイド風に傾ける) */}
+                <div className="relative group order-2 md:order-1">
+                    {/* 背景の装飾 (テープや落書き風) */}
+                    <div className="absolute -inset-4 bg-orange-200/50 dark:bg-orange-900/30 rounded-[2rem] rotate-6 scale-95 blur-sm transition-transform group-hover:rotate-3 group-hover:scale-100 duration-500" />
+
+                    <div className="relative bg-white dark:bg-slate-800 p-3 pb-12 rounded-xl shadow-xl transform -rotate-3 transition-transform duration-500 group-hover:rotate-0 border border-slate-100 dark:border-slate-700">
+                        <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-900">
+                            {/* ★重要★ 
+                  ここに以前設定した画像パスを入れてください 
+                  (publicフォルダなら "/kapi-profile.jpg")
+                */}
+                            <BlurImage
+                                src="/kapi-profile.jpg"
+                                alt="Kapi Profile"
+                                fill
+                                className="object-cover"
+                            />
+                        </div>
+                        {/* 写真の下の手書き風キャプション */}
+                        <div className="absolute bottom-4 left-0 right-0 text-center">
+                            <p className="font-rounded font-bold text-slate-400 dark:text-slate-500 text-sm tracking-widest flex items-center justify-center gap-2">
+                                <Sparkles className="w-3 h-3" /> BEST SHOT <Sparkles className="w-3 h-3" />
+                            </p>
                         </div>
 
-                        <div className="space-y-4 text-slate-600 dark:text-slate-400 font-rounded">
-                            <p>
-                                のんびり屋でマイペースな性格。<br />
-                                日当たりの良い窓際がお気に入りの場所です。<br />
-                                たまに見せる変なポーズで家族を笑わせてくれます。
-                            </p>
+                        {/* 右上のピン留め風アイコン */}
+                        <div className="absolute -top-3 -right-3 bg-orange-400 text-white p-2 rounded-full shadow-lg transform rotate-12">
+                            <PawPrint className="w-5 h-5" />
+                        </div>
+                    </div>
+                </div>
 
-                            <div className="space-y-2">
-                                <h3 className="font-bold text-slate-700 dark:text-slate-100 flex items-center gap-2">
-                                    <Heart className="w-4 h-4 text-red-400" /> Loves
-                                </h3>
-                                <div className="flex flex-wrap gap-2">
-                                    <span className="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded text-xs">チュール</span>
-                                    <span className="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded text-xs">ダンボール箱</span>
-                                    <span className="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded text-xs">お昼寝</span>
-                                </div>
+                {/* 右側: プロフィールテキストエリア */}
+                <Card className="order-1 md:order-2 border-0 shadow-none bg-transparent">
+                    <CardContent className="p-0 space-y-6">
+
+                        {/* タイトル */}
+                        <div className="space-y-2">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/40 text-orange-600 dark:text-orange-300 text-xs font-bold mb-2">
+                                <Star className="w-3 h-3 fill-current" />
+                                PROFILE
+                            </div>
+                            <h1 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-100 font-rounded tracking-tight">
+                                Kapi <span className="text-lg text-slate-400 font-normal ml-2">(カピ)</span>
+                            </h1>
+                            <p className="text-lg text-slate-600 dark:text-slate-300 font-rounded font-medium leading-relaxed">
+                                我が家のアイドル。<br />
+                                毎日気ままに過ごしています。
+                            </p>
+                        </div>
+
+                        {/* 詳細データ (カード風に並べる) */}
+                        <div className="grid grid-cols-2 gap-3">
+                            <InfoCard label="性格" value="のんびり / マイペース" />
+                            <InfoCard label="誕生日" value="2020年2月22日 (5歳)" />
+                            <InfoCard label="特技" value="長時間のお昼寝" />
+                            <InfoCard label="チャームポイント" value="白い靴下" />
+                        </div>
+
+                        {/* 好きなものリスト */}
+                        <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm p-5 rounded-2xl border border-white/50 dark:border-slate-700/50 shadow-sm">
+                            <h3 className="font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2 mb-3 font-rounded">
+                                <Heart className="w-4 h-4 text-red-400 fill-red-400" /> Loves
+                            </h3>
+                            <div className="flex flex-wrap gap-2">
+                                {["チュール", "ダンボール箱", "ひなたぼっこ", "お外の散歩", "脱走"].map((item) => (
+                                    <Badge
+                                        key={item}
+                                        variant="secondary"
+                                        className="bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-3 py-1.5 hover:scale-105 transition-transform cursor-default"
+                                    >
+                                        {item}
+                                    </Badge>
+                                ))}
                             </div>
                         </div>
 
-                        <div className="pt-4 flex gap-4 text-slate-300 justify-end">
-                            <Fish className="w-6 h-6" />
-                            <Star className="w-6 h-6" />
+                        <div className="flex justify-end text-slate-300 dark:text-slate-700">
+                            <Fish className="w-8 h-8 rotate-12" />
                         </div>
 
                     </CardContent>
-                </div>
-            </Card>
+                </Card>
+            </div>
+        </div>
+    )
+}
+
+// 小さな情報カードコンポーネント
+function InfoCard({ label, value }: { label: string, value: string }) {
+    return (
+        <div className="bg-white/80 dark:bg-slate-900/80 p-3 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">{label}</div>
+            <div className="text-sm font-bold text-slate-700 dark:text-slate-200 font-rounded">{value}</div>
         </div>
     )
 }

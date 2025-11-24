@@ -34,7 +34,9 @@ type Photo = {
     title: string | null
     tags: string[] | null
     created_at: string
-    sort_order: number // ⬅️ 追加
+    sort_order: number 
+    taken_at: string       
+    media_type: "image" | "video"
 }
 
 export default function SortablePhotoList({ photos: initialPhotos }: { photos: Photo[] }) {

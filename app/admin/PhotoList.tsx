@@ -16,6 +16,8 @@ type Photo = {
     created_at: string
     title: string | null
     description: string | null
+    taken_at: string        // ⬅️ 追加！
+    media_type: "image" | "video"
 }
 
 export default function PhotoList({ photos }: { photos: Photo[] }) {

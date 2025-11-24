@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -8,6 +8,9 @@ import { Label } from "@/components/ui/label"
 import { Pencil, Loader2 } from "lucide-react"
 import { updatePhoto } from "./actions"
 import Image from "next/image"
+import { Badge } from "@/components/ui/badge"
+import { cn } from "@/lib/utils"
+import { createClient } from "@/utils/supabase/client"
 
 type Photo = {
     id: string
@@ -24,6 +27,34 @@ export default function EditPhotoDialog({ photo }: { photo: Photo }) {
     const [open, setOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [preview, setPreview] = useState(photo.publicUrl)
+
+    const [tagsInput, setTagsInput] = useState(photo.tags?.join(", ") || "")
+    const [suggestedTags, setSuggestedTags] = useState<string[]>([])
+
+    const supabase = createClient()
+
+    useEffect(() => {
+        if (open) {
+            const fetchTags = async () => {
+                const { data } = await supabase.rpc('get_unique_tags')
+                if (data) setSuggestedTags(data.map((t: any) => t.tag || t))
+            }
+            fetchTags()
+            // 入力値のリセット
+            setTagsInput(photo.tags?.join(", ") || "")
+        }
+    }, [open, photo.tags]) // photo.tagsが変わった時もリセット
+
+    const toggleTag = (tagToToggle: string) => {
+        const currentTags = tagsInput.split(',').map(t => t.trim()).filter(t => t)
+        let newTags: string[]
+        if (currentTags.includes(tagToToggle)) {
+            newTags = currentTags.filter(t => t !== tagToToggle)
+        } else {
+            newTags = [...currentTags, tagToToggle]
+        }
+        setTagsInput(newTags.join(', '))
+    }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -96,8 +127,38 @@ export default function EditPhotoDialog({ photo }: { photo: Photo }) {
 
                     <div className="grid gap-2">
                         <Label htmlFor="tags">タグ (カンマ区切り)</Label>
-                        <Input id="tags" name="tags" defaultValue={photo.tags?.join(", ") || ""} />
+                        <Input
+                            id="tags"
+                            name="tags"
+                            value={tagsInput} // ⬅️ defaultValueではなくvalueに変更
+                            onChange={(e) => setTagsInput(e.target.value)} // 手入力も同期
+                        />
                     </div>
+
+                    {suggestedTags.length > 0 && (
+                        <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-200 dark:border-slate-700 mt-1">
+                            <div className="flex flex-wrap gap-2">
+                                {suggestedTags.map(tag => {
+                                    const isActive = tagsInput.split(',').map(t => t.trim()).includes(tag)
+                                    return (
+                                        <Badge
+                                            key={tag}
+                                            variant={isActive ? "default" : "outline"}
+                                            className={cn(
+                                                "cursor-pointer transition-all",
+                                                isActive
+                                                    ? "bg-orange-500 hover:bg-orange-600 border-orange-500"
+                                                    : "bg-white dark:bg-slate-900 hover:border-orange-400"
+                                            )}
+                                            onClick={() => toggleTag(tag)}
+                                        >
+                                            {tag}
+                                        </Badge>
+                                    )
+                                })}
+                            </div>
+                        </div>
+                    )}
 
                     {/* 並び順 */}
                     <div className="grid gap-2">

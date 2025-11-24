@@ -30,8 +30,8 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
-            <Card className="w-full max-w-sm">
+        <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4 dark:bg-slate-950">
+            <Card className="w-full max-w-sm dark:bg-slate-900">
                 <CardHeader>
                     <CardTitle className="text-center text-2xl">Admin Login 🔐</CardTitle>
                 </CardHeader>
@@ -41,7 +41,7 @@ export default function LoginPage() {
 
                         {/* エラーがあれば表示するエリア */}
                         {errorMessage && (
-                            <div className="bg-red-50 text-red-600 text-sm p-3 rounded-md flex items-center gap-2">
+                            <div className="bg-red-50 text-red-600 text-sm p-3 rounded-md flex items-center gap-2 dark:bg-red-900 dark:text-red-100">
                                 <AlertCircle className="w-4 h-4" />
                                 {errorMessage}
                             </div>
@@ -56,7 +56,7 @@ export default function LoginPage() {
                             <Input id="password" name="password" type="password" required />
                         </div>
 
-                        <Button type="submit" className="w-full" disabled={isPending}>
+                        <Button type="submit" className="w-full dark:bg-orange-500 dark:text-orange-100" disabled={isPending}>
                             {isPending ? "ログイン中..." : "ログイン"}
                         </Button>
 

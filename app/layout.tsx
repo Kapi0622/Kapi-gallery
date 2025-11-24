@@ -4,6 +4,7 @@ import { M_PLUS_Rounded_1c } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider"
 
 // 2. フォントの設定 (太さなどを指定)
 const mPlus = M_PLUS_Rounded_1c({
@@ -51,12 +52,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
-      {/* 3. bodyにフォント変数を適用し、背景色を少し温かみのある色に変更 */}
-      <body className={`${mPlus.variable} antialiased font-rounded bg-[#fdfcf8] text-slate-700`}>
-        <Header />
-        {children}
-        <Footer />
+    <html lang="ja" suppressHydrationWarning>
+      <body className={`${mPlus.variable} antialiased font-rounded 
+        bg-[#fdfcf8] dark:bg-slate-950 
+        text-slate-700 dark:text-slate-200 
+        transition-colors duration-300`}>
+        
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            {children}
+            <Footer />
+        </ThemeProvider>
+
       </body>
     </html>
   );

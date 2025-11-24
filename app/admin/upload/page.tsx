@@ -91,29 +91,29 @@ export default function UploadPage() {
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 p-8 flex justify-center items-start">
-            <Card className="w-full max-w-md">
+        <div className="min-h-screen bg-slate-50 p-8 flex justify-center items-start dark:bg-slate-950">
+            <Card className="w-full max-w-md dark:bg-slate-900">
                 <CardHeader>
-                    <CardTitle className="text-xl text-center">カピの写真を追加 📸</CardTitle>
+                    <CardTitle className="text-xl text-center dark:text-slate-100">カピの写真を追加 📸</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 dark:bg-slate-900">
 
                     {/* 画像選択エリア */}
-                    <div className="grid w-full max-w-sm items-center gap-1.5">
+                    <div className="grid w-full max-w-sm items-center gap-1.5 dark:bg-slate-900">
                         <Label htmlFor="picture">画像ファイル</Label>
                         <Input id="picture" type="file" accept="image/*" onChange={handleFileChange} />
                     </div>
 
                     {/* プレビュー表示 */}
                     {preview && (
-                        <div className="relative rounded-md overflow-hidden border border-slate-200 bg-slate-100">
+                        <div className="relative rounded-md overflow-hidden border border-slate-200 bg-slate-100 dark:bg-slate-800 dark:border-slate-700">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img src={preview} alt="Preview" className="w-full h-auto object-contain max-h-64" />
                         </div>
                     )}
 
                     {/* メタデータ入力 */}
-                    <div className="space-y-2">
+                    <div className="space-y-2 dark:bg-slate-900">
                         <Label>撮影場所 / 一言メモ</Label>
                         <Input
                             placeholder="例：リビングのソファーにて"
@@ -122,7 +122,7 @@ export default function UploadPage() {
                         />
                     </div>
 
-                    <div className="space-y-2">
+                    <div className="space-y-2 dark:bg-slate-900">
                         <Label>タグ (カンマ区切り)</Label>
                         <Input
                             placeholder="寝顔, おもちゃ, 2024冬"
@@ -133,7 +133,7 @@ export default function UploadPage() {
 
                     {/* 送信ボタン */}
                     <Button
-                        className="w-full font-bold"
+                        className="w-full font-bold dark:bg-slate-800 dark:text-slate-100"
                         onClick={handleUpload}
                         disabled={!file || uploading}
                     >

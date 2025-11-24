@@ -31,14 +31,14 @@ export default async function Home() {
   }) || []
 
   return (
-    <main className="min-h-screen bg-[#fdfcf8]"> {/* 背景色を統一 */}
+    <main className="min-h-screen bg-[#fdfcf8] dark:bg-slate-950 transition-colors duration-300">
       
       {/* ヒーローエリア的な部分 */}
       <section className="pt-20 pb-10 text-center space-y-4 px-4">
-        <h1 className="text-4xl md:text-6xl font-bold text-slate-800 tracking-tight font-rounded">
+        <h1 className="text-4xl md:text-6xl font-bold text-slate-800 dark:text-slate-100 tracking-tight font-rounded">
           Kapi Gallery <span className="text-orange-400 inline-block animate-bounce">.</span>
         </h1>
-        <p className="text-slate-500 text-sm md:text-base font-rounded max-w-md mx-auto leading-relaxed">
+        <p className="text-slate-500 dark:text-slate-400 text-sm md:text-base font-rounded max-w-md mx-auto leading-relaxed">
           のんびり屋の猫「カピ」の日常を切り取ったフォトアーカイブ。<br/>
           気まぐれに更新しています🐾
         </p>

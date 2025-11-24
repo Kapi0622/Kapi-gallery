@@ -26,12 +26,12 @@ export default async function AdminDashboard() {
     }) || []
 
     return (
-        <div className="min-h-screen bg-slate-50 p-8">
+        <div className="min-h-screen bg-slate-50 p-8 dark:bg-slate-950">
             <div className="max-w-5xl mx-auto space-y-8">
 
                 {/* ヘッダー部分 */}
                 <div className="flex justify-between items-center">
-                    <h1 className="text-3xl font-bold text-slate-800">Admin Dashboard 🛠️</h1>
+                    <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-100">管理者画面 🛠️</h1>
 
                     <div className="flex gap-2">
                         {/* ログアウトボタンを追加 */}
@@ -47,8 +47,8 @@ export default async function AdminDashboard() {
                 </div>
 
                 {/* 写真リストコンポーネント */}
-                <div className="bg-slate-100 p-4 rounded-xl border border-slate-200">
-                    <h2 className="text-sm font-bold text-slate-500 mb-4">投稿済み写真 ({photosWithUrl.length})</h2>
+                <div className="bg-slate-100 p-4 rounded-xl border border-slate-200 dark:bg-slate-900 dark:border-slate-800">
+                    <h2 className="text-sm font-bold text-slate-500 mb-4 dark:text-slate-100">投稿済み写真 ({photosWithUrl.length})</h2>
                     <PhotoList photos={photosWithUrl} />
                 </div>
 

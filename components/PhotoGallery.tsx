@@ -62,11 +62,11 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
                             key={tag}
                             onClick={() => setActiveTag(tag)}
                             className={`
-                px-4 py-1.5 rounded-full text-sm font-bold transition-all whitespace-nowrap
-                ${activeTag === tag
+                                px-4 py-1.5 rounded-full text-sm font-bold transition-all whitespace-nowrap
+                                ${activeTag === tag
                                     ? "bg-orange-400 text-white shadow-md scale-105"
-                                    : "bg-white text-slate-500 border border-slate-200 hover:bg-slate-100"}
-              `}
+                                    : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-100"}
+                            `}
                         >
                             {tag === "All" ? "すべて" : `#${tag}`}
                         </button>
@@ -85,7 +85,7 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
                                 exit={{ opacity: 0, scale: 0.8 }}
                                 transition={{ duration: 0.3 }}
 
-                                className="relative break-inside-avoid rounded-xl overflow-hidden cursor-pointer group bg-slate-100"
+                                className="relative break-inside-avoid rounded-xl overflow-hidden cursor-pointer group bg-slate-100 dark:bg-slate-800"
                                 onClick={() => setSelectedPhoto(photo)}
                             >
                                 <BlurImage
@@ -122,7 +122,7 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
 
             {/* 拡大モーダル (前回と同じですが念のため記述) */}
             <Dialog open={!!selectedPhoto} onOpenChange={(open) => !open && setSelectedPhoto(null)}>
-                <DialogContent className="max-w-4xl w-[95vw] p-0 overflow-hidden bg-slate-50/95 backdrop-blur-md border-none">
+                <DialogContent className="max-w-4xl w-[95vw] p-0 overflow-hidden bg-slate-50/95 dark:bg-slate-900/95 backdrop-blur-md border-none text-slate-700 dark:text-slate-200">
                     <div className="flex flex-col md:flex-row h-[80vh] md:h-auto">
                         <div className="relative w-full md:w-2/3 h-1/2 md:h-[80vh] bg-black/5 flex items-center justify-center p-4">
                             {selectedPhoto && (
@@ -131,14 +131,14 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
                                 </div>
                             )}
                         </div>
-                        <div className="w-full md:w-1/3 p-6 flex flex-col gap-6 overflow-y-auto bg-white">
+                        <div className="w-full md:w-1/3 p-6 flex flex-col gap-6 overflow-y-auto bg-white dark:bg-slate-950 transition-colors">
                             <DialogHeader>
-                                <DialogTitle className="text-2xl font-bold text-slate-800 font-rounded">Kapi&apos;s Photo 🐾</DialogTitle>
+                                <DialogTitle className="text-2xl font-bold text-slate-800 dark:text-slate-100 font-rounded">Kapi&apos;s Photo 🐾</DialogTitle>
                                 <DialogDescription>カピちゃんの日常</DialogDescription>
                             </DialogHeader>
                             {selectedPhoto && (
                                 <div className="space-y-6">
-                                    <div className="space-y-3 text-sm text-slate-600 font-rounded">
+                                    <div className="space-y-3 text-sm text-slate-600 dark:text-slate-400 font-rounded">
                                         <div className="flex items-center gap-2">
                                             <Calendar className="w-4 h-4 text-orange-400" />
                                             <span>{formatDate(selectedPhoto.taken_at)}</span>
@@ -153,10 +153,20 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
                                     {selectedPhoto.tags && (
                                         <div className="flex flex-wrap gap-2">
                                             {selectedPhoto.tags.map(tag => (
-                                                <Badge key={tag} variant="secondary" className="bg-orange-50 text-orange-600 hover:bg-orange-100">#{tag}</Badge>
+                                                <Badge key={tag} variant="secondary" className="bg-orange-50 text-orange-600 dark:bg-orange-900 dark:text-orange-100 dark:hover:bg-orange-900 hover:bg-orange-100">#{tag}</Badge>
                                             ))}
                                         </div>
                                     )}
+                                    <div className="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                                        <span className="text-sm font-bold text-slate-500 dark:text-slate-400 font-rounded">
+                                            気に入ったら肉球プッシュ！👉
+                                        </span>
+                                        <LikeButton
+                                            photoId={selectedPhoto.id}
+                                            initialLikes={selectedPhoto.likes_count || 0}
+                                            className="border border-slate-200 shadow-none hover:bg-slate-50" // 白背景用に少しスタイル調整
+                                        />
+                                    </div>
                                 </div>
                             )}
                             <div className="mt-auto md:hidden">

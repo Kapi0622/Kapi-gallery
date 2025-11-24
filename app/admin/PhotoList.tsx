@@ -14,6 +14,8 @@ type Photo = {
     location_note: string | null
     tags: string[] | null
     created_at: string
+    title: string | null
+    description: string | null
 }
 
 export default function PhotoList({ photos }: { photos: Photo[] }) {

@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
+import { Analytics } from "@vercel/analytics/react"
 
 // 2. フォントの設定 (太さなどを指定)
 const mPlus = M_PLUS_Rounded_1c({
@@ -67,6 +68,7 @@ export default function RootLayout({
             <Header />
             {children}
             <Footer />
+            <Analytics />
         </ThemeProvider>
 
       </body>

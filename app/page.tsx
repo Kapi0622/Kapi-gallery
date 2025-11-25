@@ -45,7 +45,7 @@ export default async function Home() {
     <main className="min-h-screen bg-[#fdfcf8] dark:bg-slate-950 bg-[radial-gradient(#e5e7eb_1.5px,transparent_1.5px)] [background-size:20px_20px] dark:bg-[radial-gradient(#1f2937_1.5px,transparent_1.5px)] transition-colors duration-300 pb-20">
 
       {/* ▼ ヒーローエリアをリデザイン */}
-      <section className="pt-12 pb-6 px-4">
+      <section className="pt-24 pb-6 px-4">
         <div className="max-w-3xl mx-auto text-center relative">
 
           {/* 装飾アイコン */}

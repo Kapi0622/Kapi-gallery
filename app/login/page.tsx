@@ -30,7 +30,7 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4 dark:bg-slate-950">
+        <div className="min-h-screen pt-20 flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-4 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)]">
             <Card className="w-full max-w-sm dark:bg-slate-900">
                 <CardHeader>
                     <CardTitle className="text-center text-2xl">Admin Login 🔐</CardTitle>

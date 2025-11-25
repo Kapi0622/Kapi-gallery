@@ -6,9 +6,9 @@ import BlurImage from "@/components/ui/BlurImage"
 export default function AboutPage() {
     return (
         // 背景にドット柄を適用
-        <div className="min-h-[90vh] p-4 md:p-8 flex items-center justify-center bg-[#fdfcf8] dark:bg-slate-950 bg-[radial-gradient(#e5e7eb_1.5px,transparent_1.5px)] [background-size:20px_20px] dark:bg-[radial-gradient(#1f2937_1.5px,transparent_1.5px)]">
+        <div className="min-h-screen pt-28 pb-12 px-4 md:px-8 flex items-center justify-center bg-[#fdfcf8] dark:bg-slate-950 bg-[radial-gradient(#e5e7eb_1.5px,transparent_1.5px)] [background-size:20px_20px] dark:bg-[radial-gradient(#1f2937_1.5px,transparent_1.5px)]">
 
-            <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="max-w-3xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
 
                 {/* 左側: 写真エリア (ポラロイド風に傾ける) */}
                 <div className="relative group order-2 md:order-1">

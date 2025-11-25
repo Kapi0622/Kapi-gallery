@@ -28,7 +28,7 @@ export default async function AdminDashboard() {
     }) || []
 
     return (
-        <div className="min-h-screen bg-slate-50 p-8 dark:bg-slate-950">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-28 px-8 pb-8 transition-colors">
             <div className="max-w-5xl mx-auto space-y-8">
 
                 {/* ヘッダー部分 */}
